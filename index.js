@@ -3,7 +3,7 @@ const SVGNS = "http://www.w3.org/2000/svg";
 window.onload = () => {
   const bgSvg = document.getElementById("bgSvg");
   const cursorRounded = document.querySelector(".glow-cursor");
-  document.documentElement.style.cursor = "none";
+  //   document.documentElement.style.cursor = "none";
   const bg = {
     height: bgSvg.scrollHeight,
     width: bgSvg.scrollWidth,
@@ -19,8 +19,10 @@ window.onload = () => {
   bgSvg.addEventListener("mousemove", (e) => {
     let x = e.clientX;
     let y = e.clientY;
-    cursorRounded.style.transform = `translate3d(${x}px, ${y}px, 0)`; // glowing cursor
-    spider = generateLines(bgSvg, bg, randomDots, x, y, spider);
+    setTimeout(() => {
+      cursorRounded.style.transform = `translate3d(${x}px, ${y}px, 0)`; // glowing cursor
+      spider = generateLines(bgSvg, bg, randomDots, x, y, spider);
+    }, 500);
   });
 
   console.log("JS loaded");
