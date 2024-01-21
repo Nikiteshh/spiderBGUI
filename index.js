@@ -25,6 +25,16 @@ window.onload = () => {
     }, 500);
   });
 
+  bgSvg.addEventListener("touchmove", (e) => {
+    let x = e.touches[0].clientX;
+    let y = e.touches[0].clientY;
+    console.log(e);
+    setTimeout(() => {
+      cursorRounded.style.transform = `translate3d(${x}px, ${y}px, 0)`; // glowing cursor
+      spider = generateLines(bgSvg, bg, randomDots, x, y, spider);
+    }, 500);
+  });
+
   console.log("JS loaded");
 };
 
