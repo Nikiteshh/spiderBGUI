@@ -1,0 +1,28 @@
+html,
+body,
+svg {
+  height: 100%;
+}
+body {
+  margin: 0;
+  width: 100%;
+}
+svg {
+  display: block;
+  width: 100%;
+}
+
+.fullWidth {
+  width: 100%;
+  background-color: green;
+  height: 100%;
+}
+.glow-cursor {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+
+  box-shadow: 0px 0px 15px 15px #fff;
+}
