@@ -1,8 +1,29 @@
 const SVGNS = "http://www.w3.org/2000/svg";
 
 window.onload = () => {
-  const bgSvg = document.getElementById("bgSvg");
-  const cursorRounded = document.querySelector(".glow-cursor");
+  // update html and body style
+  document.getElementsByTagName("html")[0].style = "height: 100%;";
+  const body = document.getElementsByTagName("body")[0];
+  body.style = "height: 100%; margin: 0; width: 100%;";
+
+  //add ssv tag and set to take up entire background
+  const bgSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  bgSvg.setAttribute("width", "100%");
+  bgSvg.setAttribute("height", "100%");
+  bgSvg.setAttribute(
+    "style",
+    `display: block; width: 100%; background-color: black; position: fixed;top: 0, left: 0; z-index: -1;`
+  );
+
+  body.prepend(bgSvg);
+
+  const cursorRounded = document.createElement("div");
+  cursorRounded.style = `position: absolute; top: 0px; left: 0px;
+  width: 10px; height: 10px;
+  background-color: #fff;
+  border-radius: 50%; box-shadow: 0px 0px 15px 15px #fff;`;
+
+  body.appendChild(cursorRounded);
   //   document.documentElement.style.cursor = "none";
   const bg = {
     height: bgSvg.scrollHeight,
@@ -12,27 +33,31 @@ window.onload = () => {
     circleCount: 500,
     lineCount: 10,
     maxLineDistance: 0,
+    delay: 250,
   };
 
   const randomDots = generateRandomDots(bgSvg, bg); // generate random dots
   let spider = {};
-  bgSvg.addEventListener("mousemove", (e) => {
+  document.addEventListener("mousemove", (e) => {
     let x = e.clientX;
     let y = e.clientY;
     setTimeout(() => {
-      cursorRounded.style.transform = `translate3d(${x}px, ${y}px, 0)`; // glowing cursor
+      cursorRounded.style.top = `${y}px`; // glowing cursor
+      cursorRounded.style.left = `${x}px`; // glowing cursor
       spider = generateLines(bgSvg, bg, randomDots, x, y, spider);
-    }, 500);
+    }, bg.delay);
   });
 
-  bgSvg.addEventListener("touchmove", (e) => {
+  // to support mobile
+  document.addEventListener("touchmove", (e) => {
     let x = e.touches[0].clientX;
     let y = e.touches[0].clientY;
     console.log(e);
     setTimeout(() => {
-      cursorRounded.style.transform = `translate3d(${x}px, ${y}px, 0)`; // glowing cursor
+      cursorRounded.style.top = `${y}px`; // glowing cursor
+      cursorRounded.style.left = `${x}px`; // glowing cursor
       spider = generateLines(bgSvg, bg, randomDots, x, y, spider);
-    }, 500);
+    }, bg.delay);
   });
 
   console.log("JS loaded");
@@ -60,7 +85,7 @@ function generateRandomDots(parent, config) {
       `fill: none; stroke: #555; stroke-width: ${config.dotStroke}px`
     );
     dots.push({ ...position, dot: circle });
-    bgSvg.appendChild(circle);
+    parent.appendChild(circle);
   }
 
   return dots;
