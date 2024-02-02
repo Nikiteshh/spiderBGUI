@@ -50,6 +50,7 @@ window.onload = () => {
 
   // to support mobile
   document.addEventListener("touchmove", (e) => {
+    e.preventDefault();
     let x = e.touches[0].clientX;
     let y = e.touches[0].clientY;
     console.log(e);
