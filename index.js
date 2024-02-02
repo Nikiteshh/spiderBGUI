@@ -4,7 +4,8 @@ window.onload = () => {
   // update html and body style
   document.getElementsByTagName("html")[0].style = "height: 100%;";
   const body = document.getElementsByTagName("body")[0];
-  body.style = "height: 100%; margin: 0; width: 100%; overflow-x: hidden;";
+  body.style =
+    "height: 100%; margin: 0; width: 100%; overflow: hidden; overscroll-behavior: none ";
 
   //add ssv tag and set to take up entire background
   const bgSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -12,7 +13,7 @@ window.onload = () => {
   bgSvg.setAttribute("height", "100%");
   bgSvg.setAttribute(
     "style",
-    `display: block; width: 100%; background-color: black; position: fixed;top: 0, left: 0; z-index: -1; overflow-x: hidden;`
+    `display: block; width: 100%; background-color: black; position: fixed;top: 0, left: 0; z-index: -1; overflow: hidden;`
   );
 
   body.prepend(bgSvg);
@@ -50,7 +51,6 @@ window.onload = () => {
 
   // to support mobile
   document.addEventListener("touchmove", (e) => {
-    e.preventDefault();
     let x = e.touches[0].clientX;
     let y = e.touches[0].clientY;
     setTimeout(() => {
@@ -58,12 +58,6 @@ window.onload = () => {
       cursorRounded.style.left = `${x}px`; // glowing cursor
       spider = generateLines(bgSvg, bg, randomDots, x, y, spider);
     }, bg.delay);
-  });
-  document.addEventListener("touchend", function (evt) {
-    evt.preventDefault();
-  });
-  document.addEventListener("touchstart", function (evt) {
-    evt.preventDefault();
   });
   console.log("JS loaded");
 };
