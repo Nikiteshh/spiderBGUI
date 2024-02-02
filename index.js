@@ -60,7 +60,12 @@ window.onload = () => {
       spider = generateLines(bgSvg, bg, randomDots, x, y, spider);
     }, bg.delay);
   });
-
+  document.addEventListener("touchend", function (evt) {
+    evt.preventDefault();
+  });
+  document.addEventListener("touchstart", function (evt) {
+    evt.preventDefault();
+  });
   console.log("JS loaded");
 };
 
