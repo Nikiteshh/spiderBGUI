@@ -12,7 +12,7 @@ window.onload = () => {
   bgSvg.setAttribute("height", "100%");
   bgSvg.setAttribute(
     "style",
-    `display: block; width: 100%; background-color: black; position: fixed;top: 0, left: 0; z-index: -1;`
+    `display: block; width: 100%; background-color: black; position: fixed;top: 0, left: 0; z-index: -1; overflow-x: hidden;`
   );
 
   body.prepend(bgSvg);
@@ -50,6 +50,7 @@ window.onload = () => {
 
   // to support mobile
   document.addEventListener("touchmove", (e) => {
+    e.preventDefault();
     let x = e.touches[0].clientX;
     let y = e.touches[0].clientY;
     setTimeout(() => {
@@ -57,6 +58,12 @@ window.onload = () => {
       cursorRounded.style.left = `${x}px`; // glowing cursor
       spider = generateLines(bgSvg, bg, randomDots, x, y, spider);
     }, bg.delay);
+  });
+  document.addEventListener("touchend", function (evt) {
+    evt.preventDefault();
+  });
+  document.addEventListener("touchstart", function (evt) {
+    evt.preventDefault();
   });
   console.log("JS loaded");
 };
